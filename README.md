@@ -141,6 +141,9 @@ WebServer1 Logs
 
 ![image](https://github.com/user-attachments/assets/394aaf7d-386f-4d99-aad5-aac2fbba40f8)
 
+WebServer2 Logs
+
+![image](https://github.com/user-attachments/assets/f0cee06e-e037-4e22-bfed-57bf6775a7eb)
 
 #### Conclusion:
 
