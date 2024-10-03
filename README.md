@@ -145,6 +145,34 @@ WebServer2 Logs
 
 ![image](https://github.com/user-attachments/assets/f0cee06e-e037-4e22-bfed-57bf6775a7eb)
 
+we have successfully set up an Apache load balancer on AWS to distribute traffic between our two web servers.
+
+#### Optional Step - Configure Local DNS Names Resolution
+
+Sometimes it is tedious to remember and switch between IP addresses, especially if you have a lot of servers under our management. What we can do, is to configure local domain name resolution. The easiest way is to use /etc/hosts file, although this approach is not very scalable, but it is very easy to configure and shows the concept well. So let us configure IP address to domain name mapping for our LB.
+
+#### Open this file on your LB server.
+
+```
+sudo vi /etc/hosts
+```
+#Add 2 records into this file with Local IP address and arbitrary name for both of your Web Servers
+```
+<WebServer1-Private-IP-Address> Web1
+<WebServer2-Private-IP-Address> Web2
+```
+Now you can update your LB config file with those names instead of IP addresses.
+![image](https://github.com/user-attachments/assets/54d774ba-95ea-4c3b-a5b0-808a46a1cffa)
+
+```
+BalancerMember http://Web1:80 loadfactor=5 timeout=1
+BalancerMember http://Web2:80 loadfactor=5 timeout=1
+```
+```
+sudo vi /etc/apache2/sites-available/000-default.conf
+```
+![image](https://github.com/user-attachments/assets/76328de6-7a17-436a-8067-768b02e5e8fd)
+
 #### Conclusion:
 
 The Load Balancer Solution with Apache project demonstrates a practical implementation of a load balancing system using Apache as the load balancer. This project showcases how to distribute incoming web traffic across multiple web servers, improving the overall performance, reliability, and scalability of a web application.
