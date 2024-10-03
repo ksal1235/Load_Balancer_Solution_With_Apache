@@ -128,6 +128,9 @@ http://13.233.152.48/login.php
 ```
 ![image](https://github.com/user-attachments/assets/7309f70b-d6a4-498e-9883-97bc2b5ac1be)
 
+Accessing the page via credential.
+![image](https://github.com/user-attachments/assets/46ec2439-ef7c-4591-b2ea-bf261c31daba)
+
 #### Webserver logs.
 
 Checking the logs
