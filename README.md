@@ -39,7 +39,7 @@ Make sure that you have the following servers installed and configured within th
 
 ![image](https://github.com/user-attachments/assets/a27fb54b-4413-4a80-ba6c-1b055bbd6b1b)
 
-![image](https://github.com/user-attachments/assets/bb3c687e-9118-4bc6-a24d-db506d054d9a)
+![image](https://github.com/user-attachments/assets/a893e0cd-4825-480a-8ea8-63b2dca9ef06)
 
 
 #### Configure Apache As A Load Balancer:
@@ -97,16 +97,19 @@ sudo vi /etc/apache2/sites-available/000-default.conf
 ```
 
 ```
-<Proxy "balancer://mycluster">
-   BalancerMember http://webserver1-private-ip
-   BalancerMember http://webserver2-private-ip
-   ProxySet lbmethod=byrequests
-</Proxy>
+        <Proxy "balancer://mycluster">
+        BalancerMember http://172.31.45.101:80 loadfactor=5 timeout=1
+        BalancerMember http://172.31.46.136:80 loadfactor=5 timeout=1
+        ProxySet lbmethod=byrequests
+        </Proxy>
 
-ProxyPass "/" "balancer://mycluster/"
-ProxyPassReverse "/" "balancer://mycluster/"
+        ProxyPreserveHost On
+        ProxyPass "/" "balancer://mycluster/"
+        ProxyPassReverse "/" "balancer://mycluster/"
+
 ```
-![image](https://github.com/user-attachments/assets/704ef52e-6b7a-4f68-8cca-a9d4b522d0b3)
+![image](https://github.com/user-attachments/assets/50587591-a8ad-4371-9f45-3f12886553ce)
+
 
 #Restart apache server
 ```
@@ -115,5 +118,24 @@ sudo systemctl restart apache2
 
 ![image](https://github.com/user-attachments/assets/d525d543-8b1c-447e-81c7-300be9325d8b)
 
-bytraffic balancing method will distribute incoming load between your Web Servers according to current traffic load. We can control in which proportion the traffic must be distributed by loadfactor parameter.
+by traffic balancing method will distribute incoming load between your Web Servers according to current traffic load. We can control in which proportion the traffic must be distributed by loadfactor parameter.
+
+
+#### Accessing the LoadBlanacer Through Public Ips.
+
+```
+http://13.233.152.48/login.php
+```
+![image](https://github.com/user-attachments/assets/7309f70b-d6a4-498e-9883-97bc2b5ac1be)
+
+#### Webserver logs.
+
+Checking the logs
+```
+ sudo tail -f /var/log/httpd/access_log
+```
+WebServer1 Logs
+
+![image](https://github.com/user-attachments/assets/394aaf7d-386f-4d99-aad5-aac2fbba40f8)
+
 
